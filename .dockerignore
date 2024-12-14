@@ -1,0 +1,21 @@
+# Ignorar entornos virtuales
+venv/
+env/
+
+# Ignorar configuraciones de VSCode
+.vscode/
+
+# Ignorar caché de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar archivos de git
+.git/
+.gitignore
+
+# Ignorar archivos de log
+*.log
+
+# Ignorar otras configuraciones locales
+.idea/

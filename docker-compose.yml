@@ -1,0 +1,48 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - autenticador_network
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: tinder_mascotas
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - autenticador_network
+
+  alembic:
+    build: .
+    volumes:
+      - ./app/alembic.ini:/app/alembic.ini
+    command: ["wait-for-it", "db:3306", "--", "sh", "-c", "alembic revision --autogenerate -m \"create users table\" && alembic upgrade head"]
+    env_file:
+      - .env
+    depends_on:
+      - db
+    networks:
+      - autenticador_network
+
+volumes:
+  db_data:
+
+networks:
+  autenticador_network:
+    driver: bridge
