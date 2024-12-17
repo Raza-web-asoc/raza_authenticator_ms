@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi import FastAPI, Depends, HTTPException, status, Response
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from app.auth.auth import authenticate_user, create_access_token, get_current_user
 from app.auth.signup import register_user
@@ -36,5 +36,7 @@ async def singup(form_data: UserCreate, db: AsyncSession = Depends(get_db)):
     return result
 
 @app.get("/token", response_model=User)
-async def verify_token(current_user: User = Depends(get_current_user)):
+async def verify_token(response: Response, current_user: User = Depends(get_current_user)):
+    response.headers["X-Auth-User-Id"] = str(current_user.id_user)
+    response.headers["X-Auth-Role"] = str(current_user.role)
     return current_user

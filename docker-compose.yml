@@ -45,4 +45,4 @@ volumes:
 
 networks:
   autenticador_network:
-    driver: bridge
+    external: true
