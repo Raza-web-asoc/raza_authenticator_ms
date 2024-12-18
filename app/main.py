@@ -4,6 +4,7 @@ from app.auth.auth import authenticate_user, create_access_token, get_current_us
 from app.auth.signup import register_user
 from app.models.models import Token, User, UserCreate
 from datetime import timedelta
+from fastapi.middleware.cors import CORSMiddleware
 
 #Importaciones para DB
 from app.database import get_db, init_db
@@ -14,6 +15,11 @@ from app.settings import settings
 oauth_2_scheme = OAuth2PasswordBearer(tokenUrl="signin")
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"]
+)
 
 @app.on_event("startup")
 async def on_startup():
