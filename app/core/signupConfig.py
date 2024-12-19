@@ -1,6 +1,7 @@
-from app.database import get_db
-from app.models.models import UserInDB, UserCreate
-from app.settings import settings
+from app.db.database import get_db
+from app.db.models import User
+from app.schemas.userSchema import UserCreate
+from app.core.settings import settings
 from datetime import date
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
@@ -19,7 +20,7 @@ async def register_user(data:UserCreate, db: AsyncSession):
     try:
         hashed_password = get_password_hash(data.password)
 
-        user = UserInDB(
+        user = User(
             username = data.username,
             names = data.names,
             last_names = data.last_names,

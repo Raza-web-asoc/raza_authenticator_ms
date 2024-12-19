@@ -5,7 +5,6 @@ load_dotenv()
 
 class Settings(BaseSettings):
     DATABASE_URL: str
-    DB_SYNC: str
     SECRET_KEY: str
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRES_MINUTES: int

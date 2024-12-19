@@ -1,18 +1,9 @@
-from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String, Date, Enum, DateTime, func
-from sqlalchemy.ext.declarative import declarative_base
-import datetime
+from sqlalchemy.orm import relationship
+from app.db.base_class import Base
+from datetime import datetime
 
-Base = declarative_base()
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-
-class TokenData(BaseModel):
-    username: str or None = None
-
-class UserInDB(Base):
+class User(Base):
     __tablename__ = "user"
 
     id_user = Column(Integer, primary_key=True, autoincrement=True)
@@ -25,27 +16,3 @@ class UserInDB(Base):
     gender = Column(Enum("M", "F", "Otro"), nullable=False, comment="Género del usuario")
     role = Column(Integer, nullable=False, default=1, comment="Rol del usuario")
     creation_date = Column(DateTime, nullable=False, default=func.now(), comment="Fecha de creación del usuario")
-
-class User(BaseModel):
-    id_user: int
-    username: str
-    names: str
-    last_names: str
-    email: str
-    role: int
-    gender: str
-    birthday: datetime.date
-
-class UserCreate(BaseModel):
-    username: str
-    names: str
-    last_names: str
-    email: str
-    password: str
-    birthday: str
-    gender: str
-
-
-class UserInSignIn(BaseModel):
-    email: str
-    password: str
