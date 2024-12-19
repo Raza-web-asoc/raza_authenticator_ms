@@ -36,6 +36,6 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.post("/signup")
-async def singup(form_data: UserCreate, db: AsyncSession = Depends(get_db)):
+async def signup(form_data: UserCreate, db: AsyncSession = Depends(get_db)):
     result = await register_user(form_data,db)
     return result
