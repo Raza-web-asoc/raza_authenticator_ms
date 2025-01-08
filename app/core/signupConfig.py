@@ -35,7 +35,7 @@ async def register_user(data:UserCreate, db: AsyncSession):
         await db.refresh(user)
 
         return JSONResponse(
-            content={"message": "User created"},
+            content={"message": "User created","idUser": user.id_user},
             status_code=201
         )
 

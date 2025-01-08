@@ -24,7 +24,7 @@ async def verify_token(response: Response, current_user: User = Depends(get_curr
     response.headers["X-Auth-Role"] = str(current_user.role)
     return current_user
 
-@router.get("/signin")
+@router.post("/signin")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = Depends(get_db)):
     user  = await authenticate_user(db, form_data.username, form_data.password)
     if not user:
