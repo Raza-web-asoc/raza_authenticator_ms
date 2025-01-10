@@ -1,8 +1,6 @@
-from app.db.database import get_db
+
 from app.db.models import User
 from app.schemas.userSchema import UserCreate
-from app.core.settings import settings
-from datetime import date
 from fastapi import HTTPException
 from fastapi.responses import JSONResponse
 
