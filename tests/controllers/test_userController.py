@@ -12,14 +12,13 @@ from app.main import app
 from app.schemas.userSchema import User
 from app.controllers import userController
 from app.core.tokenConfig import get_current_user
-from app.core.userConfig import update_user
-from tests.utils.dbMock import mock_get_db
-from app.db.database import get_db
+from tests.utils.dbMock import mock_get_db as dummy_db
+from app.db.database import get_db 
 
 
 
-# =================== Mocks ===================
-async def mock_get_current_user():
+# =================== Stubs ===================
+async def stub_get_current_user():
     return User(
         id_user=1,
         id=1,  # si tu modelo tiene ambos
@@ -32,7 +31,7 @@ async def mock_get_current_user():
     )
 
 
-async def mock_update_user(user_data, current_user, db):
+async def stub_update_user(user_data, current_user, db):
     return {
         "message": "User updated",
         "user": {
@@ -47,18 +46,16 @@ async def mock_update_user(user_data, current_user, db):
     }
 
 
-
-
 # =================== Test ===================
 @pytest.mark.asyncio
 async def test_update_user_info_should_return_updated_user():
 
     # ----------------- Arrange -----------------
-    app.dependency_overrides[get_current_user] = mock_get_current_user
-    app.dependency_overrides[get_db] = mock_get_db
+    app.dependency_overrides[get_current_user] = stub_get_current_user
+    app.dependency_overrides[get_db] = dummy_db
 
     # Sobreescribir la función update_user del controlador
-    userController.update_user = mock_update_user
+    userController.update_user = stub_update_user
 
     payload = {
         "id_user": 1,

@@ -4,13 +4,21 @@ from fastapi import HTTPException
 from app.core.userConfig import update_user
 
 # Mock de usuario
-class MockUser:
+class UserStub:
     def __init__(self, names=None, last_names=None, email=None, gender=None, birthday=None):
         self.names = names
         self.last_names = last_names
         self.email = email
         self.gender = gender
         self.birthday = birthday
+
+class UserUpdateStub:
+    def __init__(self):
+        self.names = "New"
+        self.last_names = "Tester"
+        self.email = "new@test.com"
+        self.gender = "male"
+        self.birthday = "2005-05-15"
 
 # Fixture para sesión de db mock
 @pytest.fixture
@@ -24,23 +32,12 @@ def mock_db():
 @pytest.mark.asyncio
 async def test_update_user_success(mock_db):
     # Arrange
-    user = MockUser(names="Old", last_names="User", email="old@test.com", gender="other", birthday="2000-01-01")
-    
-    class UserData:
-        def __init__(self):
-            self.names = "New"
-            self.last_names = "Tester"
-            self.email = "new@test.com"
-            self.gender = "male"
-            self.birthday = "2005-05-15"
+    user = UserStub(names="Old", last_names="User", email="old@test.com", gender="other", birthday="2000-01-01")
+    user_data = UserUpdateStub()
 
-    user_data = UserData()
-
-    
     # Act
     result = await update_user(user_data, user, mock_db)
 
-    
     # Assert
     assert result["message"] == "User updated"
     assert result["user"].names == "New"
@@ -54,10 +51,10 @@ async def test_update_user_success(mock_db):
 @pytest.mark.asyncio
 async def test_update_user_commit_exception(mock_db):
     # Arrange
-    user = MockUser(names="Old")
+    user = UserStub(names="Old")
     
     class UserData:
-        names = "New"
+        names = "New" 
         last_names = None
         email = None
         gender = None

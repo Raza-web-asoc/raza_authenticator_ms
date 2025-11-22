@@ -34,8 +34,8 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/app
-    command: ["pytest","-v", "tests"]
+      - .:/auth
+    command: ["pytest","-v"]
 
 
   db-tests:
@@ -49,7 +49,6 @@ services:
       - db
     networks:
       - autenticador_network
-
 
 volumes:
   db_data:
