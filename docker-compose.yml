@@ -29,6 +29,14 @@ services:
     networks:
       - autenticador_network
 
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: ["pytest","-v"]
+
 volumes:
   db_data:
 

@@ -40,3 +40,9 @@ uvloop==0.21.0
 watchfiles==1.0.0
 websockets==14.1
 prometheus-fastapi-instrumentator==7.0.0
+
+pytest
+pytest-asyncio
+pytest-mock
+httpx
+aiosqlite
