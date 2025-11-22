@@ -1,0 +1,11 @@
+USE tinder_mascotas;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(254) NOT NULL,
+  hashed_password VARCHAR(512) NOT NULL,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  is_superuser TINYINT(1) NOT NULL DEFAULT 0,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_users_email (email)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

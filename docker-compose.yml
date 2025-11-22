@@ -35,7 +35,21 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/app
-    command: ["pytest","-v"]
+    command: ["pytest","-v", "tests"]
+
+
+  db-tests:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "123"
+    volumes:
+      - ./app/dbtest:/tests
+    entrypoint: ["bash", "/tests/run_tests.sh"]
+    depends_on:
+      - db
+    networks:
+      - autenticador_network
+
 
 volumes:
   db_data:
