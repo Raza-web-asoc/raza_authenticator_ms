@@ -18,3 +18,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia todo el código de la aplicación al contenedor
 COPY . .
+
+RUN chmod +x app/scripts/wait-for-it.sh
+
+
+
+

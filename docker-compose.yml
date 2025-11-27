@@ -6,14 +6,14 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - .:/app
+      - .:/auth
     env_file:
       - .env
     depends_on:
       - db
     networks:
       - autenticador_network
-    entrypoint: ["wait-for-it", "db:3306", "--", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+    entrypoint: ["app/scripts/wait-for-it.sh", "db:3306", "--", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
   db:
     image: mysql:8.0
