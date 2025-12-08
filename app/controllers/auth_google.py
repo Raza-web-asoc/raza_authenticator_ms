@@ -77,7 +77,19 @@ async def login_with_google(body: GoogleToken, db: AsyncSession):
     return {"access_token": access_token, "token_type": "bearer", "user": {"id": user.id_user, "email": user.email, "username": user.username}}
 
 
+@router.post("/google")
+async def login_with_google_endpoint(body: GoogleToken, db: AsyncSession = Depends(get_db)):
+    """
+    Endpoint para login con Google.
+    Recibe token de Google y devuelve JWT de la app.
+    """
+    return await login_with_google(body, db)
+
+
 @router.post("/google/signup")
 async def signup_with_google(body: GoogleToken, db: AsyncSession = Depends(get_db)):
+    """
+    Endpoint para signup con Google (reutiliza lógica de login).
+    """
     return await login_with_google(body, db)
 # ...existing code...
