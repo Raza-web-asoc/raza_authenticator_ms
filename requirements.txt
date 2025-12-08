@@ -39,7 +39,10 @@ uvicorn==0.32.1
 uvloop==0.21.0
 watchfiles==1.0.0
 websockets==14.1
+authlib==1.2.0
 prometheus-fastapi-instrumentator==7.0.0
+google-auth==2.22.0
+requests==2.32.0 
 
 pytest
 pytest-asyncio
