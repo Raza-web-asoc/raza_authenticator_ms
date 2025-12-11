@@ -74,7 +74,7 @@ async def login_with_google(body: GoogleToken, db: AsyncSession):
                 await db.rollback()
 
     access_token = create_access_token({"sub": user.username})
-    return {"access_token": access_token, "token_type": "bearer", "user": {"id": user.id_user, "email": user.email, "username": user.username}}
+    return {"access_token": access_token, "token_type": "bearer", "role": user.role, "user": {"id": user.id_user, "email": user.email, "username": user.username}}
 
 
 @router.post("/google")

@@ -4,11 +4,11 @@ from typing import Optional
 
 class UserBase(BaseModel):
     username: str
-    names: str
-    last_names: str
+    names: Optional[str] = None
+    last_names: Optional[str] = None
     email: str
-    gender: str
-    birthday: datetime.date
+    gender: Optional[str] = None
+    birthday: Optional[datetime.date] = None
 
 class UserCreate(UserBase):
     password: str
@@ -22,7 +22,8 @@ class UserUpdate(BaseModel):
     gender: Optional[str] = None
 
 class UserInDBBase(UserBase):
-    id_user: int 
+    id_user: int
+    role: int = 1
 
     class Config:
         from_attributes = True  # Para mapear automáticamente a los atributos de SQLAlchemy
