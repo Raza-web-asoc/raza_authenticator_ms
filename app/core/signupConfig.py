@@ -25,7 +25,8 @@ async def register_user(data:UserCreate, db: AsyncSession):
             email = data.email,
             password_hash = hashed_password,
             birthday = data.birthday,
-            gender = data.gender
+            gender = data.gender,
+            role = data.role if data.role else 1  # Usar 'role' no 'rol', y por defecto 1
         )
 
         db.add(user)
